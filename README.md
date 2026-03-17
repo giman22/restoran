@@ -1,32 +1,29 @@
-# Submission Flutter: Google Offices App
+# Restaurant App - Dicoding Flutter Fundamentals
 
-Projek ini merupakan aplikasi Flutter yang menampilkan daftar kantor Google di seluruh dunia menggunakan data JSON. Aplikasi ini memenuhi standar kriteria **Advanced** (4 pts) pada setiap kriteria penilaian.
+Aplikasi informasi restoran yang dibangun dengan Flutter sebagai bagian dari tugas sertifikasi Dicoding. Proyek ini berfokus pada penerapan Clean Code, State Management, Local Storage, dan Scheduled Notifications.
 
-## Fitur Utama & Kriteria Terpenuhi
+## 🚀 Fitur Utama
 
-### 1. Halaman Daftar (HomePage) - Advanced
-- **StatefulWidget**: Implementasi di `lib/view/home_page.dart`.
-- **Search Bar**: UI menggunakan `TextField` pada body Scaffold dengan logika filtering via `setState`.
-- **Responsivitas**: Menggunakan `ListView` untuk layar kecil dan otomatis beralih ke `GridView` saat lebar layar > 700 piksel.
-- **Interaksi**: Menggunakan `InkWell` untuk navigasi yang responsif.
+* **List & Detail Restoran**: Menampilkan daftar restoran dari API beserta informasi detail menu makanan dan minuman.
+* **Favorite Restaurant**: Menyimpan restoran favorit ke database lokal menggunakan SQLite.
+* **Daily Reminder**: Notifikasi terjadwal setiap pukul 11:00 AM untuk mengingatkan waktu makan siang menggunakan `flutter_local_notifications` dan `timezone`.
+* **Dark Mode Support**: Mendukung tema terang dan gelap yang tersimpan secara persisten menggunakan `shared_preferences`.
+* **Unit Testing**: Pengujian Provider menggunakan `mockito` untuk memastikan validitas data API.
 
-### 2. Halaman Detail (DetailPage) - Advanced
-- **StatelessWidget**: Implementasi di `lib/view/detail_page.dart`.
-- **Informasi Lengkap**: Menampilkan nama, alamat, gambar, region, telepon, serta koordinat (lat/long).
-- **UI/UX**: Menggunakan `SingleChildScrollView` untuk mencegah overflow dan `BoxDecoration` untuk mempercantik gambar.
-- **Custom Font**: Menggunakan font khusus pada bagian nama kantor Google.
+## 🛠️ Detail Teknis & Arsitektur
 
-### 3. Navigasi & Pengiriman Data - Advanced
-- **ID-Based Navigation**: Data dikirim dalam bentuk `String ID` melalui parameter `googleOfficeId`.
-- **Initializer List**: Proses filtering data dilakukan pada *initializer list* sebelum fungsi `build()`.
-- **Custom Transition**: Perpindahan halaman menggunakan animasi `SlideTransition` dengan efek geser dari bawah ke atas.
+### 1. State Management
+Aplikasi ini menggunakan **Provider** untuk mengelola state secara reaktif, termasuk `RestaurantProvider`, `FavoriteProvider`, dan `PreferencesProvider`.
 
-## Struktur Folder
-```text
-lib/
-├── models/
-│   └── google_office.dart
-├── view/
-│   ├── home_page.dart
-│   └── detail_page.dart
-└── main.dart
+### 2. Theming (Best Practices)
+Sesuai dengan prinsip *Separation of Concern*, pengaturan tema dipusatkan pada `RestaurantTheme`. Tema dikonfigurasi melalui parameter `theme` dan `darkTheme` pada `MaterialApp` agar konsisten di seluruh aplikasi.
+
+### 3. Scheduled Notification
+Menggunakan `zonedSchedule` untuk akurasi waktu berdasarkan zona waktu perangkat (`flutter_timezone`). Konfigurasi Android mencakup izin `SCHEDULE_EXACT_ALARM` dan `RECEIVE_BOOT_COMPLETED` agar jadwal tetap berjalan setelah perangkat di-restart.
+
+## 🧪 Pengujian (Testing)
+
+Untuk menjalankan unit test, gunakan perintah berikut:
+
+```bash
+flutter test test/restaurant_provider_test.dart
